@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Software_Cliente</string>
+
+    <!--Login-->
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up"><![CDATA[<u>Sign Up</u>]]></string>
+    <string name="forgot_password"><![CDATA[<u>Forgot Password</u>]]></string>
+    <string name="right">→</string>
+    
+    <!--Register-->
+    <string name="name">Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="sign_in_line"><![CDATA[<u>Sign In</u>]]></string>
+
+    <!--Register Student-->
+    
+
+</resources>
