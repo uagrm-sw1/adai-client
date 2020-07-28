@@ -7,26 +7,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
-import java.net.Inet4Address;
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterStudentActivity extends AppCompatActivity {
 
-    @BindView(R.id.birthday_tutor_text_input)
+    @BindView(R.id.birthday_student_text_input)
     TextInputEditText birthday_text_input;
-    @BindView(R.id.sign_in_text_view)
-    TextView sign_in_text_view;
 
     Calendar calendar;
     DatePickerDialog.OnDateSetListener datePickerListener;
@@ -34,12 +28,11 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register_student);
         ButterKnife.bind(this);
 
-        sign_in_text_view.setText(Html.fromHtml(getResources().getString(R.string.sign_in_line)));
         calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR) - 18, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        calendar.set(calendar.get(Calendar.YEAR) - 4, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         datePickerListener = (datePicker, year, month, day) -> {
             calendar.set(year, month, day);
@@ -47,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         };
     }
 
-    @OnClick(R.id.birthday_tutor_text_input)
+    @OnClick({R.id.birthday_student_text_input})
     public void onClickBirthday(View v) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, datePickerListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -56,15 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    @OnClick(R.id.register_tutor_button)
+    @OnClick(R.id.register_student_button)
     public void onClickRegister(View v) {
-        Intent intent = new Intent(this, RegisterStudentActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.sign_in_text_view)
-    public void onClickSignIn(View v) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, StudentListActivity.class);
         startActivity(intent);
     }
 

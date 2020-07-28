@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Software_Cliente</string>
+    <string name="app_name">ADAI</string>
 
     <!--Login-->
     <string name="user_name">User Name</string>
@@ -8,7 +8,7 @@
     <string name="sign_up"><![CDATA[<u>Sign Up</u>]]></string>
     <string name="forgot_password"><![CDATA[<u>Forgot Password</u>]]></string>
     <string name="right">→</string>
-    
+
     <!--Register-->
     <string name="name">Name</string>
     <string name="last_name">Last Name</string>
@@ -21,7 +21,26 @@
     <string name="register">Register</string>
     <string name="sign_in_line"><![CDATA[<u>Sign In</u>]]></string>
 
-    <!--Register Student-->
-    
+    <!--Student List-->
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    <string name="record">Record</string>
+
+    <!--Edit Student-->
+    <string name="delete">Delete</string>
+    <string name="save_changes">Save Changes</string>
+
+    <!--Record Student-->
+    <string name="area">Area</string>
+    <string name="progress">Progress</string>
+    <string name="average">Average</string>
+    <string name="math">Math</string>
+    <string name="reading">Reading</string>
+    <string name="writing">Writing</string>
+    <string name="art">Art</string>
+    <string name="weighted_average">Weighted Average:</string>
+
+    <!--Area-->
+    <string name="areas">Areas</string>
 
 </resources>

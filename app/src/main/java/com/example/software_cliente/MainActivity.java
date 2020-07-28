@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         forgot_password_text_view.setText(Html.fromHtml(getResources().getString(R.string.forgot_password)));
     }
 
+    @OnClick(R.id.sign_in_button)
+    public void onClickSignIn(View v) {
+        Intent intent = new Intent(this, StudentListActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.sign_up_text_view)
     public void onClickSignUp(View v) {
         Intent intent = new Intent(this, RegisterActivity.class);
