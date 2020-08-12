@@ -8,12 +8,12 @@
     tools:context=".AreaActivity">
 
     <TextView
-        android:id="@+id/areas_text_view"
+        android:id="@+id/area_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
         android:layout_marginTop="28dp"
-        android:text="@string/areas"
+        android:text="Math"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/title"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,48 +29,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/areas_images_constraint_layout"
+    <Button
+        android:id="@+id/back_button"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:padding="14dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/back"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <ImageView
-            android:id="@+id/math_image_view"
-            android:layout_width="@dimen/image_size"
-            android:layout_height="@dimen/image_size"
-            android:background="@drawable/math"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/english_image_view"
-            android:layout_width="@dimen/image_size"
-            android:layout_height="@dimen/image_size"
-            android:background="@drawable/english"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/physic_image_view"
-            android:layout_width="@dimen/image_size"
-            android:layout_height="@dimen/image_size"
-            android:background="@drawable/physic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageView
-            android:id="@+id/biology_image_view"
-            android:layout_width="@dimen/image_size"
-            android:layout_height="@dimen/image_size"
-            android:background="@drawable/biology"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/logo_image_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

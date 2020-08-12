@@ -42,5 +42,7 @@
 
     <!--Area-->
     <string name="areas">Areas</string>
+    <string name="back">Back</string>
+    <string name="left">←</string>
 
 </resources>

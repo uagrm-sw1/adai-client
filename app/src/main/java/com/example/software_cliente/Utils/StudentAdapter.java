@@ -11,18 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.software_cliente.AreaActivity;
+import com.example.software_cliente.AreaListActivity;
+import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.EditStudentActivity;
 import com.example.software_cliente.R;
 
+import java.util.List;
+
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHolder> {
 
+    private String token = "";
     Context context;
-    String[] names;
+    List<Student> students;
 
-    public StudentAdapter(Context context, String[] names) {
+    public StudentAdapter(Context context, List<Student> students, String token) {
         this.context = context;
-        this.names = names;
+        this.students = students;
+        this.token = token;
     }
 
     @NonNull
@@ -35,18 +40,21 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name_student_text_view.setText(names[position]);
+        holder.name_student_text_view.setText(students.get(position).getName() + " " + students.get(position).getLastName());
+        holder.student = students.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return names.length;
+        return students.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name_student_text_view;
         Button edit_button;
+
+        Student student;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,7 +63,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
             name_student_text_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, AreaActivity.class);
+                    Intent intent = new Intent(context, AreaListActivity.class);
                     context.startActivity(intent);
                 }
             });
@@ -63,6 +71,12 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, EditStudentActivity.class);
+                    intent.putExtra("token", token);
+                    intent.putExtra("id", student.getId());
+                    intent.putExtra("name", student.getName());
+                    intent.putExtra("lastName", student.getLastName());
+                    intent.putExtra("birthday", student.getBirthday());
+                    intent.putExtra("gender", student.getGender());
                     context.startActivity(intent);
                 }
             });
