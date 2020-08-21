@@ -1,9 +1,11 @@
 package com.example.software_cliente;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,15 +16,18 @@ import android.widget.Toast;
 
 import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.Interface.RetrofitServices;
+import com.example.software_cliente.Utils.StudentAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -47,8 +52,9 @@ public class EditStudentActivity extends AppCompatActivity {
     final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
     RetrofitServices services;
     Student student;
-    private int id;
+    private int idStudent;
     private String token = "";
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +62,10 @@ public class EditStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_student);
         ButterKnife.bind(this);
 
-        token = getIntent().getExtras().getString("token");
-        id = getIntent().getExtras().getInt("id");
+        preferences = getSharedPreferences("Session", MODE_PRIVATE);
+
+        idStudent = getIntent().getExtras().getInt("idStudent");
+        token = preferences.getString("token", null);
 
         name_student_edit_text_input.setText(getIntent().getExtras().getString("name"));
         last_name_student_edit_text_input.setText(getIntent().getExtras().getString("lastName"));
@@ -95,8 +103,28 @@ public class EditStudentActivity extends AppCompatActivity {
 
     @OnClick(R.id.delete_student_button)
     public void onClickDeleteStudent(View v) {
-        Intent intent = new Intent(this, StudentListActivity.class);
-        startActivity(intent);
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
+        services = retrofit.create(RetrofitServices.class);
+        Call<Student> call = services.deleteStudent("token " + token, idStudent);
+        call.enqueue(new Callback<Student>() {
+            @Override
+            public void onResponse(Call<Student> call, Response<Student> response) {
+                if (response.isSuccessful()) {
+                    Intent intent = new Intent(EditStudentActivity.this, StudentListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(EditStudentActivity.this, "Delete student failed. Try again please", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Student> call, Throwable t) {
+                Log.i(TAG, "Error: " + t.getMessage());
+            }
+        });
     }
 
     @OnClick(R.id.save_changes_student_button)
@@ -111,13 +139,14 @@ public class EditStudentActivity extends AppCompatActivity {
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
             services = retrofit.create(RetrofitServices.class);
-            Call<Student> call = services.editStudent("token " + token, id, student);
-            //Change to Async to resolve error
+            Call<Student> call = services.editStudent("token " + token, idStudent, student);
             try {
                 Response<Student> response = call.execute();
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(this, StudentListActivity.class);
-                    intent.putExtra("token", token);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 }
             } catch (IOException e) {
@@ -127,9 +156,6 @@ public class EditStudentActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please fill the fields.", Toast.LENGTH_LONG).show();
         }
-
-        Intent intent = new Intent(this, StudentListActivity.class);
-        startActivity(intent);
     }
 
     private String getMonth(int monthNumber) {

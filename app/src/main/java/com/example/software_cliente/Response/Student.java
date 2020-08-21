@@ -29,6 +29,8 @@ public class Student {
     @Expose
     private boolean gender;
 
+    boolean expanded = false;
+
     public int getId() {
         return id;
     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -59,12 +60,15 @@ public class RegisterActivity extends AppCompatActivity {
     final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
     RetrofitServices services;
     Tutor tutor;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+
+        preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
         sign_in_text_view.setText(Html.fromHtml(getResources().getString(R.string.sign_in_line)));
         calendar = Calendar.getInstance();
@@ -134,6 +138,9 @@ public class RegisterActivity extends AppCompatActivity {
     @OnClick(R.id.sign_in_text_view)
     public void onClickSignIn(View v) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
@@ -189,8 +196,16 @@ public class RegisterActivity extends AppCompatActivity {
         try{
             Response<LoginResponse> response = call.execute();
             if (response.isSuccessful()) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("id", response.body().getId());
+                editor.putString("token", response.body().getToken());
+                editor.commit();
+
                 Intent intent = new Intent(this, RegisterStudentActivity.class);
-                intent.putExtra("token", response.body().getToken());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("first", true);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Incorrect email or password.", Toast.LENGTH_LONG).show();

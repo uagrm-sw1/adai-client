@@ -3,6 +3,7 @@ package com.example.software_cliente;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
     RetrofitServices services;
     User user;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        preferences = getSharedPreferences("Session", MODE_PRIVATE);
+
         sign_up_text_view.setText(Html.fromHtml(getResources().getString(R.string.sign_up)));
         forgot_password_text_view.setText(Html.fromHtml(getResources().getString(R.string.forgot_password)));
 
         user = new User();
+
+        validateSession();
     }
 
     @OnClick(R.id.sign_in_button)
@@ -69,8 +75,15 @@ public class MainActivity extends AppCompatActivity {
         try{
             Response<LoginResponse> response = call.execute();
             if (response.isSuccessful()) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("id", response.body().getId());
+                editor.putString("token", response.body().getToken());
+                editor.commit();
+
                 Intent intent = new Intent(this, StudentListActivity.class);
-                intent.putExtra("token", response.body().getToken());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             } else {
                 password_text_input.setText("");
@@ -103,5 +116,17 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSignUp(View v) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    private void validateSession() {
+        int id = preferences.getInt("id", 0);
+        String token = preferences.getString("token", null);
+        if (id > 0 && token != null) {
+            Intent intent = new Intent(this, StudentListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+        }
     }
 }

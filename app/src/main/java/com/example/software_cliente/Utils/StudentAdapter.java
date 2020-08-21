@@ -2,6 +2,7 @@ package com.example.software_cliente.Utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +17,17 @@ import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.EditStudentActivity;
 import com.example.software_cliente.R;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHolder> {
 
-    private String token = "";
     Context context;
     List<Student> students;
 
-    public StudentAdapter(Context context, List<Student> students, String token) {
+    public StudentAdapter(Context context, List<Student> students) {
         this.context = context;
         this.students = students;
-        this.token = token;
     }
 
     @NonNull
@@ -71,8 +71,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, EditStudentActivity.class);
-                    intent.putExtra("token", token);
-                    intent.putExtra("id", student.getId());
+                    intent.putExtra("idStudent", student.getId());
                     intent.putExtra("name", student.getName());
                     intent.putExtra("lastName", student.getLastName());
                     intent.putExtra("birthday", student.getBirthday());

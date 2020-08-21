@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
@@ -46,6 +48,9 @@ public class RegisterStudentActivity extends AppCompatActivity {
     RetrofitServices services;
     Student student;
     private String token = "";
+    boolean first = false;
+    boolean doubleBackToExitPressedOnce = false;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,10 @@ public class RegisterStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_student);
         ButterKnife.bind(this);
 
-        token = getIntent().getExtras().getString("token");
+        preferences = getSharedPreferences("Session", MODE_PRIVATE);
+
+        first = getIntent().getExtras().getBoolean("first");
+        token = preferences.getString("token", null);
 
         calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR) - 4, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -65,6 +73,28 @@ public class RegisterStudentActivity extends AppCompatActivity {
         male_student_radio_button.setChecked(true);
 
         student = new Student();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (first) {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @OnClick({R.id.birthday_student_text_input})
@@ -97,7 +127,9 @@ public class RegisterStudentActivity extends AppCompatActivity {
                 Response<Student> response = call.execute();
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(this, StudentListActivity.class);
-                    intent.putExtra("token", token);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Student registration failed. Try again please", Toast.LENGTH_LONG).show();
