@@ -1,5 +1,6 @@
 package com.example.software_cliente;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -105,6 +108,21 @@ public class StudentListActivity extends AppCompatActivity {
         }, 2000);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.logout_item) {
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.add_student_button)
     public void onClickAddStudent(View v) {
         Intent intent = new Intent(this, RegisterStudentActivity.class);
@@ -127,5 +145,14 @@ public class StudentListActivity extends AppCompatActivity {
         for (Student student : studentsSelected) {
             students.remove(student);
         }
+    }
+
+    private void logout() {
+        preferences.edit().clear().apply();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 }

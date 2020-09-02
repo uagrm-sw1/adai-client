@@ -10,7 +10,8 @@
         android:id="@+id/logo_image_view"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="18dp"
         android:background="@drawable/logo_app"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,109 +27,115 @@
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo_image_view"
-        app:layout_constraintBottom_toTopOf="@id/button_linear_layout">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:textColorHint="@color/colorBlack">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/name_student_edit_text_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:inputType="text"
-                android:hint="@string/name"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="10dp"
-            android:textColorHint="@color/colorBlack">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/last_name_student_edit_text_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:inputType="text"
-                android:hint="@string/last_name"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="10dp"
-            android:textColorHint="@color/colorBlack">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/birthday_student_edit_text_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:inputType="text"
-                android:focusable="false"
-                android:hint="@string/birthday"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/logo_image_view">
 
         <LinearLayout
-            android:id="@+id/gender_student_edit_linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:weightSum="2">
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:text="@string/gender"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/text_button"/>
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:textColorHint="@color/colorBlack">
 
-            <Space
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_student_edit_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:inputType="text"
+                    android:hint="@string/name"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorBlack">
 
-            <RadioGroup
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/last_name_student_edit_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:inputType="text"
+                    android:hint="@string/last_name"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorBlack">
 
-                <RadioButton
-                    android:id="@+id/male_student_edit_radio_button"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/birthday_student_edit_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:inputType="text"
+                    android:focusable="false"
+                    android:hint="@string/birthday"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/gender_student_edit_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="2">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/male"
-                    android:textSize="@dimen/text_view"/>
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:text="@string/gender"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_button"/>
 
-                <RadioButton
-                    android:id="@+id/female_student_edit_radio_button"
+                <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/female"
-                    android:textSize="@dimen/text_view"/>
+                    android:layout_weight="1"/>
 
-            </RadioGroup>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/male_student_edit_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male"
+                        android:textSize="@dimen/text_view"/>
+
+                    <RadioButton
+                        android:id="@+id/female_student_edit_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:text="@string/female"
+                        android:textSize="@dimen/text_view"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
 
         </LinearLayout>
 

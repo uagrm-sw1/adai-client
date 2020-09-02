@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.example.software_cliente.AreaListActivity;
 import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.EditStudentActivity;
 import com.example.software_cliente.R;
+import com.example.software_cliente.TestActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -52,7 +54,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name_student_text_view;
-        Button edit_button;
+        ImageView edit_button;
 
         Student student;
 
@@ -63,7 +65,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
             name_student_text_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, AreaListActivity.class);
+                    Intent intent = new Intent(context, TestActivity.class);
                     context.startActivity(intent);
                 }
             });
