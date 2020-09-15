@@ -1,6 +1,7 @@
 package com.example.software_cliente.Utils;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
 
         boolean isExpanded = expanded[position];
         holder.expandable_constraint_layout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.view_details_text_view.setText(isExpanded ? Html.fromHtml(context.getResources().getString(R.string.hide_details)) :
+                Html.fromHtml(context.getResources().getString(R.string.view_details)));
     }
 
     @Override
@@ -48,13 +51,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView name_student_text_view;
+        TextView view_details_text_view;
         ConstraintLayout expandable_constraint_layout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name_student_text_view = itemView.findViewById(R.id.name_student_text_view);
+            view_details_text_view = itemView.findViewById(R.id.view_details_text_view);
+            view_details_text_view.setText(Html.fromHtml(context.getResources().getString(R.string.sign_up)));
             expandable_constraint_layout = itemView.findViewById(R.id.expandable_constraint_layout);
-            name_student_text_view.setOnClickListener(new View.OnClickListener() {
+            view_details_text_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     expanded[getAdapterPosition()] = !expanded[getAdapterPosition()];

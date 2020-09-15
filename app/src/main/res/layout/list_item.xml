@@ -4,41 +4,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="10dp"
+    android:background="@drawable/oval_record" >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="6dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" >
 
             <TextView
                 android:id="@+id/name_student_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="Student Name"
+                android:text="STUDENT NAME"
                 android:textColor="@color/colorBlack"
-                android:textSize="@dimen/text_view"
+                android:textSize="@dimen/subtitle"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1sp"
-                android:background="@color/colorBlack"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_student_text_view"/>
-            
+            <TextView
+                android:id="@+id/view_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/expandable_constraint_layout" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandable_constraint_layout"
                 android:layout_width="0dp"
@@ -47,17 +51,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_student_text_view">
+                app:layout_constraintTop_toBottomOf="@id/name_student_text_view" >
 
                 <TableLayout
                     android:id="@+id/record_student_table_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginEnd="14dp"
+                    android:layout_margin="14dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent" >
 
                     <TableRow>
 
@@ -65,11 +68,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center"
                             android:text="@string/area"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -79,7 +81,7 @@
                             android:text="@string/progress"
                             android:textColor="@color/colorBlack"
                             android:textStyle="bold"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -99,10 +101,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center"
                             android:text="@string/math"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -111,7 +112,7 @@
                             android:gravity="center"
                             android:text="10/50"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -120,7 +121,7 @@
                             android:gravity="center"
                             android:text="80.5"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                     </TableRow>
 
@@ -130,10 +131,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center"
                             android:text="@string/reading"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                             android:gravity="center"
                             android:text="14/50"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
                             android:gravity="center"
                             android:text="69.0"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                     </TableRow>
 
@@ -161,10 +161,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center"
                             android:text="@string/writing"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -173,7 +172,7 @@
                             android:gravity="center"
                             android:text="9/50"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -182,7 +181,7 @@
                             android:gravity="center"
                             android:text="72.0"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                     </TableRow>
 
@@ -192,10 +191,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center"
                             android:text="@string/art"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -204,7 +202,7 @@
                             android:gravity="center"
                             android:text="17/50"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -213,33 +211,44 @@
                             android:gravity="center"
                             android:text="71.2"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view"/>
+                            android:textSize="@dimen/text_view" />
 
                     </TableRow>
 
                 </TableLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="14dp"
-                    android:text="@string/weighted_average"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/text_view"
+                    android:orientation="horizontal"
+                    android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/record_student_table_layout"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="14dp"
-                    android:text="75.4"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/text_view"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/record_student_table_layout"/>
+                    app:layout_constraintTop_toBottomOf="@id/record_student_table_layout" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="14dp"
+                        android:text="@string/weighted_average"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_view"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/record_student_table_layout"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="14dp"
+                        android:text="75.4"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/record_student_table_layout"/>
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -69,6 +69,25 @@ public class Tutor {
         return birthday;
     }
 
+    public int getYear() {
+        return Integer.valueOf(birthday.substring(0, 4));
+    }
+
+    public int getMonth() {
+        return Integer.valueOf(birthday.substring(5, 7)) - 1;
+    }
+
+    public int getDay() {
+        return Integer.valueOf(birthday.substring(8));
+    }
+
+    public void setBirthday(int year, int month, int day) {
+        String birth = year + "-" +
+                ((month + 1 < 10) ? "0" + (month + 1) : (month + 1)) + "-" +
+                ((day < 10) ? "0" + day : day);
+        setBirthday(birth);
+    }
+
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }

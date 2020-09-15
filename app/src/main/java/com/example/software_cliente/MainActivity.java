@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText password_text_input;
     @BindView(R.id.sign_up_text_view)
     TextView sign_up_text_view;
-    @BindView(R.id.forgot_password_text_view)
-    TextView forgot_password_text_view;
 
     final String TAG = RegisterActivity.class.getSimpleName();
     final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
@@ -50,13 +48,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        getSupportActionBar().hide();
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
         sign_up_text_view.setText(Html.fromHtml(getResources().getString(R.string.sign_up)));
-        forgot_password_text_view.setText(Html.fromHtml(getResources().getString(R.string.forgot_password)));
 
         user = new User();
 

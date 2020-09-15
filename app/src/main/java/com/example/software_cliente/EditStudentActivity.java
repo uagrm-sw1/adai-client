@@ -1,5 +1,6 @@
 package com.example.software_cliente;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -8,8 +9,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -62,6 +67,14 @@ public class EditStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_student);
         ButterKnife.bind(this);
 
+        SpannableStringBuilder str = new SpannableStringBuilder("EDITAR INFORMACIÓN");
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(str);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorBackground)));
+
         preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
         idStudent = getIntent().getExtras().getInt("idStudent");
@@ -71,7 +84,7 @@ public class EditStudentActivity extends AppCompatActivity {
         last_name_student_edit_text_input.setText(getIntent().getExtras().getString("lastName"));
         String birthday = getIntent().getExtras().getString("birthday");
         birthday_student_edit_text_input.setText(
-                getMonth(Integer.valueOf(birthday.substring(5, 7)) - 1) + " " + birthday.substring(8) + " " + birthday.substring(0, 4));
+                birthday.substring(8) + " " + getMonth(Integer.valueOf(birthday.substring(5, 7)) - 1) + " " + birthday.substring(0, 4));
         boolean male = getIntent().getExtras().getBoolean("gender");
         if (male)
             male_student_edit_radio_button.setChecked(true);
@@ -83,10 +96,22 @@ public class EditStudentActivity extends AppCompatActivity {
 
         datePickerListener = (datePicker, year, month, day) -> {
             calendar.set(year, month, day);
-            birthday_student_edit_text_input.setText(getMonth(month) + " " + day + " " + year);
+            birthday_student_edit_text_input.setText(day + " " + getMonth(month) + " " + year);
         };
 
         student = new Student();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, StudentListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @OnClick(R.id.birthday_student_edit_text_input)
@@ -101,40 +126,12 @@ public class EditStudentActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    @OnClick(R.id.delete_student_button)
-    public void onClickDeleteStudent(View v) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
-        services = retrofit.create(RetrofitServices.class);
-        Call<Student> call = services.deleteStudent("token " + token, idStudent);
-        call.enqueue(new Callback<Student>() {
-            @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if (response.isSuccessful()) {
-                    Intent intent = new Intent(EditStudentActivity.this, StudentListActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(EditStudentActivity.this, "Delete student failed. Try again please", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.i(TAG, "Error: " + t.getMessage());
-            }
-        });
-    }
-
     @OnClick(R.id.save_changes_student_button)
     public void onClickSaveChanges(View v) {
         if (areFieldsFill()) {
             student.setName(name_student_edit_text_input.getText().toString());
             student.setLastName(last_name_student_edit_text_input.getText().toString());
-            student.setBirthday(calendar.get(Calendar.YEAR) + "-" +
-                    ((calendar.get(Calendar.MONTH) + 1 < 10) ? "0" + (calendar.get(Calendar.MONTH) + 1) : (calendar.get(Calendar.MONTH) + 1)) + "-" +
-                    ((calendar.get(Calendar.DAY_OF_MONTH) < 10) ? "0" + calendar.get(Calendar.DAY_OF_MONTH) : calendar.get(Calendar.DAY_OF_MONTH)));
+            student.setBirthday(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             student.setGender(male_student_edit_radio_button.isChecked());
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();

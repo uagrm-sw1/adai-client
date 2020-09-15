@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
@@ -58,6 +60,14 @@ public class RegisterStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_student);
         ButterKnife.bind(this);
 
+        SpannableStringBuilder str = new SpannableStringBuilder("REGISTRAR INFORMACIÓN");
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(str);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorBackground)));
+
         preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
         first = getIntent().getExtras().getBoolean("first");
@@ -68,7 +78,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
 
         datePickerListener = (datePicker, year, month, day) -> {
             calendar.set(year, month, day);
-            birthday_student_text_input.setText(getMonth(month) + " " + day + " " + year);
+            birthday_student_text_input.setText(day + " " + getMonth(month) + " " + year);
         };
         male_student_radio_button.setChecked(true);
 
@@ -114,9 +124,7 @@ public class RegisterStudentActivity extends AppCompatActivity {
         if (areFieldsFill()) {
             student.setName(name_student_text_input.getText().toString());
             student.setLastName(last_name_student_text_input.getText().toString());
-            student.setBirthday(calendar.get(Calendar.YEAR) + "-" +
-                    ((calendar.get(Calendar.MONTH) + 1 < 10) ? "0" + (calendar.get(Calendar.MONTH) + 1) : (calendar.get(Calendar.MONTH) + 1)) + "-" +
-                    ((calendar.get(Calendar.DAY_OF_MONTH) < 10) ? "0" + calendar.get(Calendar.DAY_OF_MONTH) : calendar.get(Calendar.DAY_OF_MONTH)));
+            student.setBirthday(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             student.setGender(male_student_radio_button.isChecked());
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();

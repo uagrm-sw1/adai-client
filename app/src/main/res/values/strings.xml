@@ -3,46 +3,52 @@
     <string name="logout">Logout</string>
 
     <!--Login-->
-    <string name="user_name">User Name</string>
-    <string name="password">Password</string>
-    <string name="sign_in">Sign In</string>
-    <string name="sign_up"><![CDATA[<u>Sign Up</u>]]></string>
+    <string name="user_name">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="sign_in">INICIAR SESIÓN</string>
+    <string name="sign_up"><![CDATA[¿Todavía no estás registrado? <b><u>Regístrate</u></b>]]></string>
     <string name="forgot_password"><![CDATA[<u>Forgot Password</u>]]></string>
     <string name="right">→</string>
 
     <!--Register-->
-    <string name="name">Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="birthday">Birthday</string>
-    <string name="gender">Gender</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="email">Email</string>
+    <string name="name">Nombre(s)</string>
+    <string name="last_name">Apellido(s)</string>
+    <string name="birthday">Fecha de Nacimiento</string>
+    <string name="gender">Sexo:</string>
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
+    <string name="email">Correo Electrónico</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="register">Register</string>
+    <string name="register">Registrar</string>
     <string name="sign_in_line"><![CDATA[<u>Sign In</u>]]></string>
 
     <!--Student List-->
-    <string name="edit">Edit</string>
-    <string name="add">Add</string>
-    <string name="record">Record</string>
+    <string name="welcome">¡BIENVENIDO!</string>
+    <string name="welcome_text">Estamos felices de verte nuevamente por aquí, favor selecciona un niño de la lista para empezar a aprender juntos.</string>
+    <string name="student_list">LISTA DE HIJOS</string>
+    <string name="edit">Editar</string>
+    <string name="add">Añadir Hijo</string>
+    <string name="delete">Eliminar</string>
+    <string name="record">Histórico</string>
 
     <!--Edit Student-->
-    <string name="delete">Delete</string>
-    <string name="save_changes">Save Changes</string>
+    <string name="edit_information">EDITAR INFORMACIÓN</string>
+    <string name="save_changes">Actualizar</string>
 
     <!--Record Student-->
-    <string name="area">Area</string>
-    <string name="progress">Progress</string>
-    <string name="average">Average</string>
-    <string name="math">Math</string>
-    <string name="reading">Reading</string>
-    <string name="writing">Writing</string>
-    <string name="art">Art</string>
-    <string name="weighted_average">Weighted Average:</string>
+    <string name="area">Materia</string>
+    <string name="progress">Progreso</string>
+    <string name="average">Promedio</string>
+    <string name="math">Matemática</string>
+    <string name="reading">Lectura</string>
+    <string name="writing">Escritura</string>
+    <string name="art">Arte</string>
+    <string name="weighted_average">PROMEDIO PONDERADO</string>
+    <string name="view_details"><![CDATA[<u>Ver detalles</u>]]></string>
+    <string name="hide_details"><![CDATA[<u>Ocultar detalles</u>]]></string>
 
     <!--Area-->
-    <string name="areas">Areas</string>
+    <string name="lessons">TEMAS</string>
     <string name="back">Back</string>
     <string name="left">←</string>
 

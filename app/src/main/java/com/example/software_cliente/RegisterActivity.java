@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         datePickerListener = (datePicker, year, month, day) -> {
             calendar.set(year, month, day);
-            birthday_text_input.setText(getMonth(month) + " " + day + " " + year);
+            birthday_text_input.setText(day + " " + getMonth(month) + " " + year);
         };
         male_tutor_radio_button.setChecked(true);
 
@@ -101,9 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (password_tutor_text_input.getText().toString().equals(confirm_password_tutor_text_input.getText().toString())) {
                 tutor.setName(name_tutor_text_input.getText().toString());
                 tutor.setLastName(last_name_tutor_text_input.getText().toString());
-                tutor.setBirthday(calendar.get(Calendar.YEAR) + "-" +
-                        ((calendar.get(Calendar.MONTH) + 1 < 10) ? "0" + (calendar.get(Calendar.MONTH) + 1) : (calendar.get(Calendar.MONTH) + 1)) + "-" +
-                        ((calendar.get(Calendar.DAY_OF_MONTH) < 10) ? "0" + calendar.get(Calendar.DAY_OF_MONTH) : calendar.get(Calendar.DAY_OF_MONTH)));
+                tutor.setBirthday(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 tutor.setGender(male_tutor_radio_button.isChecked());
                 tutor.setEmail(email_tutor_text_input.getText().toString());
                 tutor.setPassword(password_tutor_text_input.getText().toString());

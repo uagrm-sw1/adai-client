@@ -38,8 +38,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StudentListActivity extends AppCompatActivity {
 
-    @BindView(R.id.loading_image)
-    ImageView loading_image;
     @BindView(R.id.student_list_recycler_view)
     RecyclerView student_list_recycler_view;
 
@@ -58,7 +56,7 @@ public class StudentListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_list);
         ButterKnife.bind(this);
 
-        Glide.with(getBaseContext()).load(R.drawable.jar_loading).into(loading_image);
+        getSupportActionBar().hide();
 
         preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
@@ -75,7 +73,6 @@ public class StudentListActivity extends AppCompatActivity {
                     students = response.body();
                     selectStudents();
                     StudentAdapter studentAdapter = new StudentAdapter(StudentListActivity.this, students);
-                    loading_image.setVisibility(View.GONE);
                     student_list_recycler_view.setAdapter(studentAdapter);
                     student_list_recycler_view.setLayoutManager(new LinearLayoutManager(StudentListActivity.this));
                 } else {
@@ -108,19 +105,9 @@ public class StudentListActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.logout_item) {
-            logout();
-        }
-        return super.onOptionsItemSelected(item);
+    @OnClick(R.id.logout_image_view)
+    public void onClickLogout(View v) {
+        logout();
     }
 
     @OnClick(R.id.add_student_button)

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -14,18 +15,26 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/logo_image_view"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/sign_in"
+            android:textColor="@color/color5"
+            android:textSize="@dimen/title"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/logo_image_view"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
             android:layout_marginTop="18dp"
-            android:background="@drawable/logo_app"/>
+            android:src="@drawable/ostrich"/>
 
         <LinearLayout
             android:id="@+id/login_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -33,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:textColorHint="@color/colorBlack">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_text_input"
@@ -50,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:textColorHint="@color/colorBlack">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_text_input"
@@ -58,7 +67,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
                     android:inputType="textPassword"
-                    android:hint="@string/password" />
+                    android:hint="@string/password"
+                    android:drawableRight="@drawable/ic_remove_red_eye_black_24dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,32 +76,22 @@
 
         <Button
             android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_margin="20dp"
             android:gravity="center"
-            android:backgroundTint="@color/colorAccent"
+            android:background="@drawable/oval_button"
             android:text="@string/sign_in"
             android:textSize="@dimen/text_button"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorTextButton"/>
 
         <TextView
             android:id="@+id/sign_up_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textSize="@dimen/text_view"
-            android:textColor="@color/colorBlue"/>
-
-        <TextView
-            android:id="@+id/forgot_password_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textSize="@dimen/text_view"
-            android:textColor="@color/colorBlue"/>
+            android:textColor="@color/colorBlack"/>
 
     </LinearLayout>
 
