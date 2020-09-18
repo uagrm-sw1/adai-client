@@ -1,6 +1,7 @@
 package com.example.software_cliente.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.software_cliente.R;
+import com.example.software_cliente.TestActivity;
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHolder> {
 
@@ -42,6 +44,30 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHold
             holder.lesson_number_text_view.setTextColor(context.getResources().getColor(R.color.colorText));
             holder.lesson_title_text_view.setTextColor(context.getResources().getColor(R.color.colorText));
         }
+
+        //TEST
+        holder.lesson_linear_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (position) {
+                    case 0:
+                        Intent intent1 = new Intent(context, TestActivity.class);
+                        intent1.putExtra("type", "multiple");
+                        context.startActivity(intent1);
+                        break;
+                    case 1:
+                        Intent intent2 = new Intent(context, TestActivity.class);
+                        intent2.putExtra("type", "voice");
+                        context.startActivity(intent2);
+                        break;
+                    case 2:
+                        Intent intent3 = new Intent(context, TestActivity.class);
+                        intent3.putExtra("type", "paint");
+                        context.startActivity(intent3);
+                        break;
+                }
+            }
+        });
     }
 
     @Override

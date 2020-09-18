@@ -1,5 +1,6 @@
 package com.example.software_cliente;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -9,7 +10,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -50,8 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText password_tutor_text_input;
     @BindView(R.id.confirm_password_tutor_text_input)
     TextInputEditText confirm_password_tutor_text_input;
-    @BindView(R.id.sign_in_text_view)
-    TextView sign_in_text_view;
 
     Calendar calendar;
     DatePickerDialog.OnDateSetListener datePickerListener;
@@ -68,9 +70,16 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
+        SpannableStringBuilder str = new SpannableStringBuilder("REGISTRAR DATOS");
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(str);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorBackground)));
+
         preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
-        sign_in_text_view.setText(Html.fromHtml(getResources().getString(R.string.sign_in_line)));
         calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR) - 18, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -81,6 +90,18 @@ public class RegisterActivity extends AppCompatActivity {
         male_tutor_radio_button.setChecked(true);
 
         tutor = new Tutor();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @OnClick(R.id.birthday_tutor_text_input)
@@ -131,15 +152,6 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please fill the fields.", Toast.LENGTH_LONG).show();
         }
-    }
-
-    @OnClick(R.id.sign_in_text_view)
-    public void onClickSignIn(View v) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
     }
 
     private String getMonth(int monthNumber) {

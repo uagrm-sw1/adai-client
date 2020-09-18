@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".TestActivity">
 
     <LinearLayout
@@ -13,35 +14,195 @@
         android:layout_margin="8dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title_test_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/subtitle"/>
-
         <ProgressBar
+            android:id="@+id/test_progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_margin="8dp"
             style="?android:attr/progressBarStyleHorizontal"
-            android:progress="50"/>
+            android:progressDrawable="@drawable/custom_progressbar"
+            android:progress="40"/>
 
         <ScrollView
+            android:id="@+id/multiple_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:padding="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="4dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:src="@drawable/hipopotamus"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/oval_lesson"
+                        android:text="¿Cuánto es 1 + 1?"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:elevation="4dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oval_button"
+                        android:text="2"
+                        android:textColor="@color/colorTextButton"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/subtitle"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oval_button"
+                        android:text="5"
+                        android:textColor="@color/colorTextButton"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/subtitle"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oval_button"
+                        android:text="10"
+                        android:textColor="@color/colorTextButton"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/subtitle"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oval_button"
+                        android:text="1"
+                        android:textColor="@color/colorTextButton"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/subtitle"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oval_button"
+                        android:text="-10"
+                        android:textColor="@color/colorTextButton"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/subtitle"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/oval_button"
+                        android:text="0"
+                        android:textColor="@color/colorTextButton"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/subtitle"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/voice_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_weight="6">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/zebra"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/oval_lesson"
+                android:text="¿Cuál es tu nombre y apellido?"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/subtitle"
+                android:textStyle="bold"
+                android:elevation="4dp"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="6dp"
+                android:background="@drawable/oval_button"
+                android:drawableTop="@drawable/ic_keyboard_voice_black_24dp"
+                android:text="@string/voice"
+                android:textColor="@color/colorTextButton"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_button"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/paint_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_margin="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="PAINT!!"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

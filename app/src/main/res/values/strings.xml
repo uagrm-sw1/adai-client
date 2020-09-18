@@ -11,6 +11,7 @@
     <string name="right">→</string>
 
     <!--Register-->
+    <string name="insert_data">INGRESE SUS DATOS:</string>
     <string name="name">Nombre(s)</string>
     <string name="last_name">Apellido(s)</string>
     <string name="birthday">Fecha de Nacimiento</string>
@@ -18,7 +19,7 @@
     <string name="male">Masculino</string>
     <string name="female">Femenino</string>
     <string name="email">Correo Electrónico</string>
-    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_password">Confirmar Contraseña</string>
     <string name="register">Registrar</string>
     <string name="sign_in_line"><![CDATA[<u>Sign In</u>]]></string>
 
@@ -53,6 +54,7 @@
     <string name="left">←</string>
 
     <!--Test-->
-    <string name="test">First Test</string>
+    <string name="test">Examen Inicial</string>
+    <string name="voice">PRESIONA PARA HABLAR</string>
 
 </resources>

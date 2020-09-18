@@ -17,6 +17,7 @@ import com.example.software_cliente.Utils.LessonAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AreaActivity extends AppCompatActivity {
 

@@ -1,5 +1,6 @@
 package com.example.software_cliente;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -83,6 +85,20 @@ public class RegisterStudentActivity extends AppCompatActivity {
         male_student_radio_button.setChecked(true);
 
         student = new Student();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (!first) {
+                    Intent intent = new Intent(this, StudentListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
