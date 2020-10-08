@@ -2,14 +2,12 @@ package com.example.software_cliente;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -21,18 +19,15 @@ import android.widget.Toast;
 
 import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.Interface.RetrofitServices;
-import com.example.software_cliente.Utils.StudentAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,7 +49,7 @@ public class EditStudentActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener datePickerListener;
 
     final String TAG = EditStudentActivity.class.getSimpleName();
-    final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
+    final String baseUrl = "http://ec2-3-21-164-122.us-east-2.compute.amazonaws.com/api/";
     RetrofitServices services;
     Student student;
     private int idStudent;

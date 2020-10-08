@@ -12,7 +12,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 
-import com.example.software_cliente.Utils.RecordAdapter;
+import com.example.software_cliente.Adapters.RecordAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

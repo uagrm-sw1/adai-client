@@ -1,4 +1,4 @@
-package com.example.software_cliente.Utils;
+package com.example.software_cliente.Adapters;
 
 import android.content.Context;
 import android.content.Intent;

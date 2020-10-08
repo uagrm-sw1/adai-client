@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     TextView sign_up_text_view;
 
     final String TAG = RegisterActivity.class.getSimpleName();
-    final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
+    final String baseUrl = "http://ec2-3-21-164-122.us-east-2.compute.amazonaws.com/api/";
     RetrofitServices services;
     User user;
     private SharedPreferences preferences;
@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSignIn(View v) {
         user.setEmail(email_text_input.getText().toString());
         user.setPassword(password_text_input.getText().toString());
+
+        /*Intent intent = new Intent(this, TestActivity.class);
+        intent.putExtra("type", "voice");
+        startActivity(intent);*/
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         services = retrofit.create(RetrofitServices.class);

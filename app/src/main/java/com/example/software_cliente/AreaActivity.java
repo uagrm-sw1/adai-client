@@ -11,13 +11,11 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.example.software_cliente.Utils.LessonAdapter;
+import com.example.software_cliente.Adapters.LessonAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AreaActivity extends AppCompatActivity {
 

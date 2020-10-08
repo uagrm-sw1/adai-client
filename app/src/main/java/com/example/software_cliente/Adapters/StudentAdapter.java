@@ -1,4 +1,4 @@
-package com.example.software_cliente.Utils;
+package com.example.software_cliente.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +20,8 @@ import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.EditStudentActivity;
 import com.example.software_cliente.R;
 import com.example.software_cliente.StudentListActivity;
-import com.example.software_cliente.TestActivity;
 
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHolder> {
 
-    final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
+    final String baseUrl = "http://ec2-3-21-164-122.us-east-2.compute.amazonaws.com/api/";
     RetrofitServices services;
     private String token = "";
     private SharedPreferences preferences;

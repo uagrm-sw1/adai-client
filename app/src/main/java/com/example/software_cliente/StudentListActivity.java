@@ -1,29 +1,21 @@
 package com.example.software_cliente;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.Interface.RetrofitServices;
-import com.example.software_cliente.Utils.StudentAdapter;
+import com.example.software_cliente.Adapters.StudentAdapter;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +34,7 @@ public class StudentListActivity extends AppCompatActivity {
     RecyclerView student_list_recycler_view;
 
     final String TAG = StudentListActivity.class.getSimpleName();
-    final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
+    final String baseUrl = "http://ec2-3-21-164-122.us-east-2.compute.amazonaws.com/api/";
     RetrofitServices services;
     private int id;
     private String token = "";

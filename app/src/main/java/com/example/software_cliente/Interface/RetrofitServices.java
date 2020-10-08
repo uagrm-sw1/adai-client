@@ -18,21 +18,21 @@ import retrofit2.http.Path;
 
 public interface RetrofitServices {
 
-    @POST("api/login/")
+    @POST("login/")
     Call<LoginResponse> login (@Body User user);
 
-    @POST("api/perfil/")
+    @POST("perfil/")
     Call<Tutor> register (@Body Tutor tutor);
 
-    @POST("api/estudiante/")
+    @POST("estudiante/")
     Call<Student> registerStudent (@Header ("Authorization") String token, @Body Student student);
 
-    @GET("api/estudiante/")
+    @GET("estudiante/")
     Call<List<Student>> getStudents (@Header ("Authorization") String token);
 
-    @PUT("api/estudiante/{id}/")
+    @PUT("estudiante/{id}/")
     Call<Student> editStudent (@Header ("Authorization") String token, @Path ("id") int id, @Body Student student);
 
-    @DELETE("api/estudiante/{id}/")
+    @DELETE("estudiante/{id}/")
     Call<Student> deleteStudent (@Header ("Authorization") String token, @Path ("id") int id);
 }

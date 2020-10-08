@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener datePickerListener;
 
     final String TAG = RegisterActivity.class.getSimpleName();
-    final String baseUrl = "http://ec2-3-134-80-247.us-east-2.compute.amazonaws.com/";
+    final String baseUrl = "http://ec2-3-21-164-122.us-east-2.compute.amazonaws.com/api/";
     RetrofitServices services;
     Tutor tutor;
     private SharedPreferences preferences;
