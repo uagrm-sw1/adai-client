@@ -3,11 +3,17 @@ package com.example.software_cliente;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.text.Spannable;
@@ -16,13 +22,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.software_cliente.Interface.RetrofitServices;
+import com.example.software_cliente.Paint.MyCanvasView;
 import com.example.software_cliente.Response.Answer;
 import com.example.software_cliente.Response.Exam;
 import com.example.software_cliente.Response.ExerciseExam;
@@ -30,22 +39,30 @@ import com.example.software_cliente.Response.Exercise;
 import com.example.software_cliente.Response.InitialExam;
 import com.example.software_cliente.Response.Note;
 import com.example.software_cliente.Response.Student;
+import com.example.software_cliente.Response.Text;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Multipart;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -73,12 +90,16 @@ public class TestActivity extends AppCompatActivity {
     LinearLayout voice_linear_layout;
     @BindView(R.id.voice_question_text_view)
     TextView voice_question_text_view;
-    @BindView(R.id.paint_linear_layout)
-    LinearLayout paint_linear_layout;
-    @BindView(R.id.paint_text_view)
-    TextView paint_text_view;
+    @BindView(R.id.paint_relative_layout)
+    RelativeLayout paint_linear_layout;
+    @BindView(R.id.paint_question_text_view)
+    TextView paint_question_text_view;
     @BindView(R.id.speech_button)
     Button speech_button;
+    @BindView(R.id.loading_image_view)
+    ImageView loading_image_view;
+    @BindView(R.id.myView)
+    MyCanvasView canvasView;
 
     final int RESULT_SPEECH = 1;
     private String textAudio = "";
@@ -172,6 +193,27 @@ public class TestActivity extends AppCompatActivity {
                         str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, exam.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         getSupportActionBar().setTitle(str);
 
+                        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
+                        services = retrofit.create(RetrofitServices.class);
+                        Call<List<ExerciseExam>> callExercise = services.getExerciseExam();
+                        callExercise.enqueue(new Callback<List<ExerciseExam>>() {
+                            @Override
+                            public void onResponse(Call<List<ExerciseExam>> call, Response<List<ExerciseExam>> response) {
+                                if (response.isSuccessful()) {
+                                    exerciseExams = response.body();
+                                    selectExercise();
+                                    getQuestionExam();
+                                } else {
+                                    Toast.makeText(TestActivity.this, "Get initial exam failed. Try again please", Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<ExerciseExam>> call, Throwable t) {
+                                Log.i(TAG, "Error: " + t.getMessage());
+                            }
+                        });
+
                     } else {
                         Toast.makeText(TestActivity.this, "Get exam failed. Try again please", Toast.LENGTH_LONG).show();
                     }
@@ -179,27 +221,6 @@ public class TestActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<Exam>> call, Throwable t) {
-                    Log.i(TAG, "Error: " + t.getMessage());
-                }
-            });
-
-            retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
-            services = retrofit.create(RetrofitServices.class);
-            Call<List<ExerciseExam>> call = services.getExerciseExam();
-            call.enqueue(new Callback<List<ExerciseExam>>() {
-                @Override
-                public void onResponse(Call<List<ExerciseExam>> call, Response<List<ExerciseExam>> response) {
-                    if (response.isSuccessful()) {
-                        exerciseExams = response.body();
-                        selectExercise();
-                        getQuestionExam();
-                    } else {
-                        Toast.makeText(TestActivity.this, "Get initial exam failed. Try again please", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<ExerciseExam>> call, Throwable t) {
                     Log.i(TAG, "Error: " + t.getMessage());
                 }
             });
@@ -276,6 +297,12 @@ public class TestActivity extends AppCompatActivity {
 
     private void getQuestion() {
         if (!initialExams.isEmpty()) {
+            voice_linear_layout.setVisibility(View.GONE);
+            paint_linear_layout.setVisibility(View.GONE);
+            multiple_scroll_view.setVisibility(View.GONE);
+            loading_image_view.setVisibility(View.VISIBLE);
+            Glide.with(this).asGif().load(R.drawable.loading).into(loading_image_view);
+
             InitialExam initialExam = initialExams.remove(0);
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
@@ -336,7 +363,14 @@ public class TestActivity extends AppCompatActivity {
 
     private void getQuestionExam() {
         if (!exerciseExams.isEmpty()) {
+            voice_linear_layout.setVisibility(View.GONE);
+            paint_linear_layout.setVisibility(View.GONE);
+            multiple_scroll_view.setVisibility(View.GONE);
+            loading_image_view.setVisibility(View.VISIBLE);
+            Glide.with(this).asGif().load(R.drawable.loading).into(loading_image_view);
+
             index++;
+
             ExerciseExam exerciseExam = exerciseExams.remove(0);
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
@@ -394,6 +428,8 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void setQuestion() {
+        loading_image_view.setVisibility(View.GONE);
+
         if (exercise.getType().equals("selector")) {
             voice_linear_layout.setVisibility(View.GONE);
             paint_linear_layout.setVisibility(View.GONE);
@@ -416,6 +452,10 @@ public class TestActivity extends AppCompatActivity {
             multiple_scroll_view.setVisibility(View.GONE);
             voice_linear_layout.setVisibility(View.GONE);
             paint_linear_layout.setVisibility(View.VISIBLE);
+
+            paint_question_text_view.setText(exercise.getQuestion());
+
+            getAnswers();
         }
     }
 
@@ -477,8 +517,6 @@ public class TestActivity extends AppCompatActivity {
                 else
                     third_answer_button.setText("Ninguno");
             }
-        }
-        if (exercise.getType().equals("pintura")) {
         }
     }
 
@@ -563,12 +601,63 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.paint_text_view)
-    public void onClickPaint(View v) {
-        if (type.equals("initial"))
-            getQuestion();
-        else
-            getQuestionExam();
+    @OnClick(R.id.button_clear)
+    public void onClickClear(View v) {
+        canvasView.clear();
+    }
+
+    @OnClick(R.id.button_save_image)
+    public void onClickSaveImage(View v) {
+        viewToBipmap(canvasView);
+    }
+
+    public void viewToBipmap(View view) {
+        String filename = UUID.randomUUID().toString() + ".jpg";
+        System.out.println(filename);
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        File sdCard = Environment.getExternalStorageDirectory();
+        File file = new File(sdCard, filename);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, fos);
+
+        //RequestBody fBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("image", filename, RequestBody.create(MediaType.parse("image/*"), file));
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://35.239.45.148:8000/api/v1/sw1/").addConverterFactory(GsonConverterFactory.create()).build();
+        services = retrofit.create(RetrofitServices.class);
+        Call<Text> call = services.sendImage(filePart);
+        call.enqueue(new Callback<Text>() {
+            @Override
+            public void onResponse(Call<Text> call, Response<Text> response) {
+                if (response.isSuccessful()) {
+                    String text = response.body().getAnswer();
+                    Log.i(TAG, "PAINT: " + text);
+                    if (text.equals(answers.get(0).getContent())) {
+                        if (type.equals("initial"))
+                            getQuestion();
+                        else
+                            getQuestionExam();
+                    } else {
+                        canvasView.clear();
+                        Toast.makeText(getApplicationContext(), "Inténtalo otra vez.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(TestActivity.this, "Send image failed. Try again please", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Text> call, Throwable t) {
+                Log.i(TAG, "Error: " + t.getMessage());
+            }
+        });
     }
 
     private void selectExercise() {

@@ -56,6 +56,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHold
             holder.lesson_linear_layout.setBackground(context.getResources().getDrawable(R.drawable.oval_lesson_complete));
             holder.lesson_number_text_view.setTextColor(context.getResources().getColor(R.color.colorText));
             holder.lesson_title_text_view.setTextColor(context.getResources().getColor(R.color.colorText));
+            holder.lesson_linear_layout.setEnabled(false);
         }
         holder.lesson = lessons.get(position);
     }

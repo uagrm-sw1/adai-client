@@ -24,4 +24,7 @@
     <color name="color8">#889730</color>
     <color name="color9">#798674</color>
 
+    <color name="opaque_orange">#FFFF5500</color>
+    <color name="opaque_yellow">#FFFFEB3B</color>
+
 </resources>

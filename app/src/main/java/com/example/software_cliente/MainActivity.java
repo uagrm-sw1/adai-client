@@ -2,8 +2,11 @@ package com.example.software_cliente;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
@@ -52,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        if (Build.VERSION.SDK_INT >= 23){
+            int REQUEST_CODE_CONTACT = 101;
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            // Verify permissions
+            for (String str : permissions) {
+                if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                    //request for access
+                    this.requestPermissions(permissions, REQUEST_CODE_CONTACT);
+                }
+            }
+        }
 
         preferences = getSharedPreferences("Session", MODE_PRIVATE);
 
