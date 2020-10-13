@@ -67,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
         user.setEmail(email_text_input.getText().toString());
         user.setPassword(password_text_input.getText().toString());
 
-        /*Intent intent = new Intent(this, TestActivity.class);
-        intent.putExtra("type", "voice");
-        startActivity(intent);*/
-
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         services = retrofit.create(RetrofitServices.class);
         Call<LoginResponse> call = services.login(user);

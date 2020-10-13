@@ -2,27 +2,40 @@ package com.example.software_cliente.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.software_cliente.Interface.RetrofitServices;
 import com.example.software_cliente.R;
+import com.example.software_cliente.Response.Lesson;
+import com.example.software_cliente.Response.Note;
 import com.example.software_cliente.TestActivity;
+import java.util.List;
+
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHolder> {
 
     private Context context;
-    private String[] titles = new String[]{"NÚMEROS", "SUMA", "RESTA", "MULTIPLICACIÓN", "DIVISIÓN"};
-    private boolean[] completed = new boolean[]{true, true, false, false, false};
+    private List<Lesson> lessons;
+    private int idStudent;
 
-    public LessonAdapter(Context context) {
+    boolean[] completed;
+
+    public LessonAdapter(Context context, List<Lesson> lessons, boolean[] completed, int idStudent) {
         this.context = context;
+        this.lessons = lessons;
+        this.idStudent = idStudent;
+        this.completed = completed;
     }
 
     @NonNull
@@ -36,7 +49,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull LessonAdapter.MyViewHolder holder, int position) {
         holder.lesson_number_text_view.setText("TEMA " + (position + 1));
-        holder.lesson_title_text_view.setText(titles[position]);
+        holder.lesson_title_text_view.setText(lessons.get(position).getTitle());
 
         if (completed[position]) {
             holder.complete_image_view.setVisibility(View.VISIBLE);
@@ -44,35 +57,12 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHold
             holder.lesson_number_text_view.setTextColor(context.getResources().getColor(R.color.colorText));
             holder.lesson_title_text_view.setTextColor(context.getResources().getColor(R.color.colorText));
         }
-
-        //TEST
-        holder.lesson_linear_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (position) {
-                    case 0:
-                        Intent intent1 = new Intent(context, TestActivity.class);
-                        intent1.putExtra("type", "multiple");
-                        context.startActivity(intent1);
-                        break;
-                    case 1:
-                        Intent intent2 = new Intent(context, TestActivity.class);
-                        intent2.putExtra("type", "voice");
-                        context.startActivity(intent2);
-                        break;
-                    case 2:
-                        Intent intent3 = new Intent(context, TestActivity.class);
-                        intent3.putExtra("type", "paint");
-                        context.startActivity(intent3);
-                        break;
-                }
-            }
-        });
+        holder.lesson = lessons.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return titles.length;
+        return lessons.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -81,6 +71,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHold
         TextView lesson_title_text_view;
         LinearLayout lesson_linear_layout;
         ImageView complete_image_view;
+        Lesson lesson;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +79,19 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.MyViewHold
             lesson_title_text_view = itemView.findViewById(R.id.lesson_title_text_view);
             lesson_linear_layout = itemView.findViewById(R.id.lesson_linear_layout);
             complete_image_view = itemView.findViewById(R.id.complete_image_view);
+
+            lesson_linear_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, TestActivity.class);
+                    intent.putExtra("type", "exam");
+                    intent.putExtra("idStudent", idStudent);
+                    intent.putExtra("idLesson", lesson.getId());
+                    intent.putExtra("idCourse", lesson.getCourseId());
+                    intent.putExtra("idSubject", lesson.getSubjectId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

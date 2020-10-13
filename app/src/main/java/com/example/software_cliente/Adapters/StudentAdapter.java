@@ -20,6 +20,7 @@ import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.EditStudentActivity;
 import com.example.software_cliente.R;
 import com.example.software_cliente.StudentListActivity;
+import com.example.software_cliente.TestActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -90,8 +91,40 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
             name_text_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, AreaListActivity.class);
-                    context.startActivity(intent);
+                    if (!student.isInitialExam()) {
+                        Intent intent = new Intent(context, TestActivity.class);
+                        intent.putExtra("type", "initial");
+                        intent.putExtra("idStudent", student.getId());
+                        intent.putExtra("name", student.getName());
+                        intent.putExtra("lastName", student.getLastName());
+                        intent.putExtra("birthday", student.getBirthday());
+                        intent.putExtra("gender", student.getGender());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        context.startActivity(intent);
+                    } else {
+                        Calendar calendar = Calendar.getInstance();
+                        int age = calendar.get(Calendar.YEAR) - student.getYear();
+                        int idCourse = 0;
+                        if (age == 4 || age == 5)
+                            idCourse = 1;
+                        if (age == 6)
+                            idCourse = 2;
+                        if (age == 7)
+                            idCourse = 3;
+                        if (age == 8)
+                            idCourse = 4;
+                        if (age == 9)
+                            idCourse = 5;
+                        if (age == 10)
+                            idCourse = 6;
+
+                        Intent intent = new Intent(context, AreaListActivity.class);
+                        intent.putExtra("idStudent", student.getId());
+                        intent.putExtra("idCourse", idCourse);
+                        context.startActivity(intent);
+                    }
                 }
             });
             edit_button.setOnClickListener(new View.OnClickListener() {

@@ -78,16 +78,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/progress"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/text_view" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
                             android:text="@string/average"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/text_view"
@@ -106,15 +96,7 @@
                             android:textSize="@dimen/text_view" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="10/50"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view" />
-
-                        <TextView
+                            android:id="@+id/math_average_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -136,15 +118,7 @@
                             android:textSize="@dimen/text_view" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="14/50"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view" />
-
-                        <TextView
+                            android:id="@+id/reading_average_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -166,15 +140,7 @@
                             android:textSize="@dimen/text_view" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="9/50"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view" />
-
-                        <TextView
+                            android:id="@+id/writing_average_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -196,15 +162,7 @@
                             android:textSize="@dimen/text_view" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="17/50"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/text_view" />
-
-                        <TextView
+                            android:id="@+id/art_average_text_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -239,6 +197,7 @@
                         app:layout_constraintTop_toBottomOf="@id/record_student_table_layout"/>
 
                     <TextView
+                        android:id="@+id/average_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"

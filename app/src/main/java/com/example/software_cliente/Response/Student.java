@@ -31,7 +31,15 @@ public class Student {
     @Expose
     private boolean gender;
 
-    boolean expanded = false;
+    @SerializedName("dioExamen")
+    @Expose
+    private boolean initialExam;
+
+    @SerializedName("promedio")
+    @Expose
+    private float average;
+
+    public boolean expanded = false;
 
     public int getId() {
         return id;
@@ -98,5 +106,21 @@ public class Student {
 
     public void setGender(boolean gender) {
         this.gender = gender;
+    }
+
+    public boolean isInitialExam() {
+        return initialExam;
+    }
+
+    public void setInitialExam(boolean initialExam) {
+        this.initialExam = initialExam;
+    }
+
+    public float getAverage() {
+        return average;
+    }
+
+    public void setAverage(float average) {
+        this.average = average;
     }
 }

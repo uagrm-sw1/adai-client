@@ -1,5 +1,12 @@
 package com.example.software_cliente.Interface;
 
+import com.example.software_cliente.Response.Answer;
+import com.example.software_cliente.Response.Exam;
+import com.example.software_cliente.Response.ExerciseExam;
+import com.example.software_cliente.Response.Exercise;
+import com.example.software_cliente.Response.InitialExam;
+import com.example.software_cliente.Response.Lesson;
+import com.example.software_cliente.Response.Note;
 import com.example.software_cliente.Response.Student;
 import com.example.software_cliente.Response.Tutor;
 import com.example.software_cliente.Response.User;
@@ -35,4 +42,28 @@ public interface RetrofitServices {
 
     @DELETE("estudiante/{id}/")
     Call<Student> deleteStudent (@Header ("Authorization") String token, @Path ("id") int id);
+
+    @GET("ejericicio_examen_inicial/")
+    Call<List<InitialExam>> getInitialExamExercise ();
+
+    @GET("ejercicio/{id}/")
+    Call<Exercise> getExercise (@Path ("id") int id);
+
+    @GET("respuesta/")
+    Call<List<Answer>> getAnswer ();
+
+    @GET("tema/")
+    Call<List<Lesson>> getLessons ();
+
+    @POST("nota/")
+    Call<Note> createNote (@Body Note note);
+
+    @GET("nota/")
+    Call<List<Note>> getNotes ();
+
+    @GET("examen/")
+    Call<List<Exam>> getExams ();
+
+    @GET("ejericicio_examen/")
+    Call<List<ExerciseExam>> getExerciseExam ();
 }
